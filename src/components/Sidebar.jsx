@@ -5,6 +5,7 @@ import { useState, useMemo } from 'react';
  * COMPONENT: Sidebar
  * @description Sidebar interaktif untuk filter kategori dan pencarian UMKM.
  * Menggunakan skema warna cokelat (earthy tone) untuk Light & Dark mode.
+ * Dilengkapi dengan watermark identitas pengembang di bagian footer.
  */
 const Sidebar = ({ data, theme, activeCategories, toggleCategory, filteredData, onSpotClick }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,7 +15,6 @@ const Sidebar = ({ data, theme, activeCategories, toggleCategory, filteredData, 
 
   /**
    * Mengambil daftar unik kategori utama dari dataset Google Sheets.
-   * FIX: Menambahkan kurung siku [] pada Array spread.
    */
   const categories = useMemo(() => 
     [...new Set(data.map(item => item.kategori_utama))].filter(Boolean)
@@ -102,7 +102,6 @@ const Sidebar = ({ data, theme, activeCategories, toggleCategory, filteredData, 
                     {isActive && subCategories.length > 0 && <ChevronDown size={14} />}
                   </label>
 
-                  {/* SUB-CATEGORY RENDER */}
                   {isActive && subCategories.map(sub => (
                     <label key={sub} className={`flex items-center gap-2 pl-9 p-2 rounded-xl cursor-pointer transition-colors ${
                       isDark ? 'hover:bg-[#2D1B14]' : 'hover:bg-[#FAF3E0]'
@@ -166,6 +165,38 @@ const Sidebar = ({ data, theme, activeCategories, toggleCategory, filteredData, 
               <p className="text-[10px] font-bold uppercase">Tidak ditemukan</p>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* --- WATERMARK FOOTER (COMPACT & CLICKABLE) --- */}
+      <div className={`px-5 py-3 border-t transition-colors shrink-0 ${
+        isDark ? 'bg-[#1B1212] border-[#3E2723]' : 'bg-[#FAF3E0]/30 border-[#D7CCC8]/30'
+      }`}>
+        <div className="flex justify-between items-center opacity-60 hover:opacity-100 transition-opacity">
+          <div className="flex flex-col">
+            <p className={`text-[8px] font-black uppercase tracking-wider ${
+              isDark ? 'text-[#8D6E63]' : 'text-[#A1887F]'
+            }`}>
+              PEMDES GEDANGAN
+            </p>
+            <p className={`text-[7px] font-bold ${isDark ? 'text-white/40' : 'text-black/40'}`}>
+              © 2026 GIAT 15
+            </p>
+          </div>
+          
+          <div className="text-right">
+            <p className={`text-[8px] font-medium ${isDark ? 'text-[#BC8F8F]' : 'text-[#5D4037]'}`}>
+              Dev by {' '}
+              <a 
+                href="https://github.com/vkeyzar" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-black italic hover:underline decoration-dotted transition-all cursor-pointer"
+              >
+                Vkey
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </aside>
