@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark Mode Inversion */
+.dark-theme-map .leaflet-tile-container {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+}
+
+/* Reset filter agar marker dan kontrol tetap warna aslinya */
+.dark-theme-map .leaflet-marker-icon,
+.dark-theme-map .leaflet-popup-content,
+.dark-theme-map .leaflet-control,
+.dark-theme-map .custom-marker {
+    filter: invert(100%) hue-rotate(180deg) !important;
+}
+
+/* Transisi mulus saat pindah tema */
+.leaflet-container {
+    transition: filter 0.5s ease-in-out;
+    z-index: 1;
+}
